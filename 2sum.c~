@@ -86,12 +86,14 @@ for(i=-10000;i<=10000;i++)
 	R[i+10000]=i;
 for(i=0;i<=20001;i++){
 	t=R[i];
+	printf("\n %d \t %d \n",t,ctr);
 	for(j=0;j<=999999;j++){
 		s=t-A[j];
 		if(s==A[j])
 			continue;
 		else if((binary_search(A,s,0,999999)==1))
 				ctr++;
+				break;
 				}
 	}
 printf("\n%d\n",ctr);
