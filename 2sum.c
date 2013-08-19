@@ -29,7 +29,6 @@ if(p<r){
 }
 int Partition(long int A[],int p,int r){
 long int x;
-//Choose_Pivot(A,p,r);
 x=A[p];
 int i,j;
 i=p+1;
@@ -50,34 +49,12 @@ if(i!=j){
 	A[i]=A[j];
 	A[j]=temp;
 	}
-}
-void Choose_Pivot(long int A[],int p,int r){
-int i,n;
-n=r;
-/*if((r-p)==1){
-	if(A[p]>A[r])
-		n=r;
-	else
-		n=p;
-	}
-else{
-	if(((r-p+1)%2)==0){
-		i=(r-p)/2+p;
-		}
-	else
-		i=(r-p+1)/2+p;
-	if(((A[p]>A[i])&&(A[p]<A[r]))||((A[p]<A[i])&&(A[p]>A[r])))
-	n=p;
-	else if(((A[i]>A[p])&&(A[i]<A[r]))||((A[i]<A[p])&&(A[i]>A[r])))
-	n=i;
-	else if(((A[r]>A[i])&&(A[r]<A[p]))||((A[r]<A[i])&&(A[r]>A[p])))
-	n=r;
-	}*/
-swap(A,n,p);
 }	
 int main(){
-int i,j,k,R[20001],ctr=0;
-long int* A,t,s;
+int i,k,R[20001],ctr=0,pos1,pos2;
+register int j;
+register long int s;
+long int* A,t;
 A=(long int*)malloc(1000000*sizeof(long int));
 for(i=0;i<=999999;i++)
 	scanf("%ld",&A[i]);
@@ -89,9 +66,19 @@ for(i=0;i<=20001;i++){
 	printf("\n %d \t %d \n",t,ctr);
 	for(j=0;j<=999999;j++){
 		s=t-A[j];
+		if(s>=0){
+			pos1=499989;
+			pos2=999999;
+			}
+		else if(s<0){
+			pos1=0;
+			pos2=499989;
+			}
 		if(s==A[j])
 			continue;
-		else if((binary_search(A,s,0,999999)==1)){
+		else if((s+A[j]>10000)||(s+A[j]<-10000))
+			break;
+		else if((binary_search(A,s,pos1,pos2)==1)){
 				ctr++;
 				break;
 				}
