@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<limits.h>
 //Binary Search
 int binary_search(long int A[],long int key,int imin,int imax){
 int imid;
@@ -29,7 +30,6 @@ if(p<r){
 }
 int Partition(long int A[],int p,int r){
 long int x;
-//Choose_Pivot(A,p,r);
 x=A[p];
 int i,j;
 i=p+1;
@@ -50,35 +50,14 @@ if(i!=j){
 	A[i]=A[j];
 	A[j]=temp;
 	}
-}
-void Choose_Pivot(long int A[],int p,int r){
-int i,n;
-n=r;
-/*if((r-p)==1){
-	if(A[p]>A[r])
-		n=r;
-	else
-		n=p;
-	}
-else{
-	if(((r-p+1)%2)==0){
-		i=(r-p)/2+p;
-		}
-	else
-		i=(r-p+1)/2+p;
-	if(((A[p]>A[i])&&(A[p]<A[r]))||((A[p]<A[i])&&(A[p]>A[r])))
-	n=p;
-	else if(((A[i]>A[p])&&(A[i]<A[r]))||((A[i]<A[p])&&(A[i]>A[r])))
-	n=i;
-	else if(((A[r]>A[i])&&(A[r]<A[p]))||((A[r]<A[i])&&(A[r]>A[p])))
-	n=r;
-	}*/
-swap(A,n,p);
 }	
 int main(){
-int i,j,k,R[20001],ctr=0;
-long int* A,t,s;
+int i,R[20001],ctr=0;
+register int left,right;
+register long int sum;
+long int* A,t;
 A=(long int*)malloc(1000000*sizeof(long int));
+printf("%ld",LONG_MAX);
 for(i=0;i<=999999;i++)
 	scanf("%ld",&A[i]);
 Quicksort(A,0,999999);
@@ -86,25 +65,20 @@ for(i=-10000;i<=10000;i++)
 	R[i+10000]=i;
 for(i=0;i<=20001;i++){
 	t=R[i];
+	left=0;right=999999;
 	printf("\n %d \t %d \n",t,ctr);
-	for(j=0;j<=999999;j++){
-		s=t-A[j];
-		if(s==A[j])
-			continue;
-		else if((binary_search(A,s,0,999999)==1))
-				ctr++;
-				break;
-				}
+	while(left<right){
+		sum=A[left]+A[right];
+		if(sum==t){
+			ctr++;
+			break;
+			}
+		else if(sum>t)
+			right--;
+		else
+			left++;
+		}
 	}
 printf("\n%d\n",ctr);
 return 0;
 }
-
-
-
-
-
-
-
-
-
