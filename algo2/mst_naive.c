@@ -26,7 +26,7 @@ void sort(mst edge[],int e){
 	for(i=0;i<e-1;i++){
 		pos=i;
 		for(j=i+1;j<e;j++){
-			if(edge[j].edge_cost<edge[pos].edge_cost){
+			if(edge[j].edge_cost<=edge[pos].edge_cost){
 				pos=j;
 				}
 			}
